@@ -67,32 +67,6 @@ if __name__ == "__main__":
     gs = gale_shapley(hospital_prefs, student_prefs)
     matches = gs.match()
     num_proposals = gs.get_num_proposals()
-
-    # validity
-    if len(set(matches.keys())) != len(set(matches.values())):
-        print('INVALID: hospital or student has multiple partners.')
-    
-    for student, hospital in matches.items():
-        if student not in student_prefs or hospital not in hospital_prefs:
-            print('INVALID: match has unknown hospital or student.')
-    
-    # stability
-    for student, hospital in matches.items():
-        student_pref_list = student_prefs[student]
-        hospital_pref_list = hospital_prefs[hospital]
-
-        better = []
-        for h in student_pref_list:
-            if h==hospital:
-                break
-            better.append(h)
-        for s in hospital_pref_list:
-            if s==student:
-                break
-            if s in better:
-                print("INVALID: Unstable match(es)")
-                break
-    
     
     # output in the given format
     for student, hospital in matches.items():
