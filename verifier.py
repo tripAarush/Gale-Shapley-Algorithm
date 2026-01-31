@@ -88,7 +88,7 @@ if __name__ == "__main__":
         for line in f:
             line = line.strip()
             if not line or line.startswith("Number"):
-                contintue
+                continue
                 
             converting = line.split()
 
