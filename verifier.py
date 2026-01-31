@@ -16,12 +16,11 @@ def validity_checker(hospital_prefs, student_prefs, matches):
     for hospital, student in matches.items():
         students_matched.append(student)
 
-    for student in students_matched:
-        if students_matched.count(student) > 1:
-            print(f"INVALID: Student {student} is matched more than once")
-            return False
+    if len(set(students_matched)) != n:
+        print(f"INVALID: Student {student} is matched more than once")
+        return False
         
-    for student in range(1, n + 1)
+    for student in range(1, n + 1):
         if student not in students_matched:
             print(f"INVALID: Student {student} does not have a match")
             return False
