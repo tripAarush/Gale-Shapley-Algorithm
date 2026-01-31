@@ -27,23 +27,25 @@ def validity_checker(hospital_prefs, student_prefs, matches):
         
     return True
 
-def stability_checker(hospital_prefs, student_prefs, matches):  
+def stability_checker(hospital_prefs, student_prefs, matches):
     reverse_sToh = {s: h for h, s in matches.items()}
     n = len(matches)
+
+    # ranking the preferences for O(1) lookup instead of having to do .index everytime
+    rank_h = {h: {s: i for i, s in enumerate(hospital_prefs[h])} for h in hospital_prefs}
+    rank_s = {s: {h: i for i, h in enumerate(student_prefs[s])} for s in student_prefs}
+
     for h in range(1, n + 1):
+        h_match = matches[h]
         for s in range(1, n + 1):
-            if matches[h] == s:
+            if s == h_match:
                 continue
-            h_match = matches[h]
             s_match = reverse_sToh[s]
 
-            h_pref = hospital_prefs[h].index(s) < hospital_prefs[h].index(h_match)
-            s_pref = student_prefs[s].index(h) < student_prefs[s].index(s_match)
-
-            if h_pref and s_pref:
+            if rank_h[h][s] < rank_h[h][h_match] and rank_s[s][h] < rank_s[s][s_match]:
                 print(f"UNSTABLE PAIR: Hospital {h}, Student {s}")
                 return False
-    
+
     return True
             
 def verifier(hospital_prefs, student_prefs, matches):
