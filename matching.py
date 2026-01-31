@@ -49,13 +49,15 @@ if __name__ == "__main__":
     if len(lines) == 0:
         print('INVALID INPUT: Input is empty.'
     )
-    if len(lines[0].strip()) == 1:
-        n_check = int(lines[0].strip())
-    else:
+    if not lines[0].strip().isdigit():
         print('INVALID INPUT: First line must contain a single integer.')
+        exit()
+    else:
+        n_check = int(lines[0].strip())
+
     if len(lines) != 2 * n_check + 1:
         print('INVALID INPUT: Uneven hospital and student preferences OR extra whitespace detected.')
-    
+
     for i in range(1, len(lines)):
         if i <= n_check:
             hospital_prefs[i] = list(map(int, lines[i].strip().split()))
