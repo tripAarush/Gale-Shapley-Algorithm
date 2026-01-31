@@ -62,15 +62,14 @@ if __name__ == "__main__":
         else:
             student_prefs[i - n_check] = list(map(int, lines[i].strip().split()))
 
-    print("Hospital Preferences:", hospital_prefs)
-    print("Student Preferences:", student_prefs)
     gs = gale_shapley(hospital_prefs, student_prefs)
     matches = gs.match()
     num_proposals = gs.get_num_proposals()
     
     # output in the given format
-    for student, hospital in matches.items():
-        print(student, hospital)
+    with open('output_test.txt', 'w') as f:
+        for student, hospital in matches.items():
+            f.write(f"{hospital} {student}\n")
 
     print("Number of proposals:", num_proposals)
 

@@ -21,7 +21,7 @@ def validity_checker(hospital_prefs, student_prefs, matches):
             print(f"INVALID: Student {student} is matched more than once")
             return False
         
-    for student in range(1, n + 1)
+    for student in range(1, n + 1):
         if student not in students_matched:
             print(f"INVALID: Student {student} does not have a match")
             return False
@@ -89,7 +89,7 @@ if __name__ == "__main__":
         for line in f:
             line = line.strip()
             if not line or line.startswith("Number"):
-                contintue
+                continue
                 
             converting = line.split()
 
