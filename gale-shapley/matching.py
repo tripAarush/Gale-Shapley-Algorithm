@@ -40,15 +40,21 @@ class gale_shapley:
     def get_num_proposals(self):
         return self.num_proposals
 
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+INPUT_FILE = BASE_DIR / "test files" / "input_test.txt"
+OUTPUT_FILE = BASE_DIR /"test files" / "output_test.txt"
 if __name__ == "__main__":
     hospital_prefs = {}
     student_prefs = {}
-    with open("input_test.txt", "r") as f:
+    
+    with open(INPUT_FILE, "r") as f:
         lines = f.readlines()
     
     if len(lines) == 0:
-        print('INVALID INPUT: Input is empty.'
-    )
+        print('INVALID INPUT: Input is empty.')
+        exit()
     if not lines[0].strip().isdigit():
         print('INVALID INPUT: First line must contain a single integer.')
         exit()
@@ -69,9 +75,8 @@ if __name__ == "__main__":
     num_proposals = gs.get_num_proposals()
     
     # output in the given format
-    with open('output_test.txt', 'w') as f:
+    with open(OUTPUT_FILE, 'w') as f:
         for student, hospital in matches.items():
             f.write(f"{hospital} {student}\n")
 
     print("Number of proposals:", num_proposals)
-

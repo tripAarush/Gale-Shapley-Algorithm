@@ -3,9 +3,11 @@ import time
 import sys
 import subprocess
 import matplotlib.pyplot as plt
+from pathlib import Path
 
-from matching import gale_shapley
-from verifier import verifier
+BASE_DIR = Path(__file__).resolve().parent.parent
+INPUT_FILE = BASE_DIR / "test files" / "input_test.txt"
+
 def generate_random_input(n):
     hospitals = list(range(1, n + 1))
     students = list(range(1, n + 1))
@@ -23,7 +25,7 @@ def generate_random_input(n):
         random.shuffle(prefs)
         student_prefs[student] = prefs
     
-    with open("input_test.txt", "w") as f:
+    with open(INPUT_FILE, "w") as f:
         # keeping the input format by mapping list values to string
         f.write(f"{n}\n")
         for i in range(1, n + 1):
@@ -51,6 +53,9 @@ def benchmark(ns, trials=5, repo_dir="."):
         mt = 0.0
         vt = 0.0
         for _ in range(trials):
+            random.seed(time.time_ns())
+            generate_random_input(n)
+
             mt += run_and_time([sys.executable, "matching.py"], cwd=repo_dir)
             vt += run_and_time([sys.executable, "verifier.py"], cwd=repo_dir)
 

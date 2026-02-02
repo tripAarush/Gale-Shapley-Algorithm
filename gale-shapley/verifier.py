@@ -1,3 +1,5 @@
+from pathlib import Path
+
 # need to verify if a match is valid and stable and return true if so
 def validity_checker(hospital_prefs, student_prefs, matches):
     n = len(hospital_prefs)
@@ -58,11 +60,15 @@ def verifier(hospital_prefs, student_prefs, matches):
     print("VALID STABLE")
     return True
 
+BASE_DIR = Path(__file__).resolve().parent.parent
+INPUT_FILE = BASE_DIR / "test files" / "input_test.txt"
+OUTPUT_FILE = BASE_DIR /"test files" / "output_test.txt"
+
 if __name__ == "__main__":
     hospital_prefs = {}
     student_prefs = {}
 
-    with open("input_test.txt", "r") as f:
+    with open(INPUT_FILE, "r") as f:
         lines = f.readlines()
 
     if len(lines) == 0:
@@ -86,7 +92,7 @@ if __name__ == "__main__":
 
     matches = {}
 
-    with open("output_test.txt", "r") as f:
+    with open(OUTPUT_FILE, "r") as f:
         for line in f:
             line = line.strip()
             if not line or line.startswith("Number"):
